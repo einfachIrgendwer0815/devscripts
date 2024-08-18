@@ -1,0 +1,21 @@
+[package]
+name = "dev-tools"
+version = "0.1.0"
+edition = "2021"
+authors = ["einfachIrgendwer0815"]
+license = "MIT OR Apache-2.0"
+description = "Optimize your development workflow by automating repetitive tasks"
+exclude = ["*", "!src/**", "!LICENSE*", "!NOTICE", "!README"]
+
+# prevent unintended publish before version 0.1.0 is actually released
+publish = false
+
+[[bin]]
+name = "dev"
+required-features = ["application"]
+
+[features]
+default = ["application"]
+application = []
+
+[dependencies]
