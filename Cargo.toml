@@ -16,6 +16,8 @@ required-features = ["application"]
 
 [features]
 default = ["application"]
-application = []
+application = ["clap", "anyhow"]
 
 [dependencies]
+anyhow = { version = "1.0.86", optional = true }
+clap = { version = "4.5.16", features = ["cargo"], optional = true }
