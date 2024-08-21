@@ -29,3 +29,8 @@ clap = { version = "4.5.16", features = ["cargo"], optional = true }
 [package.metadata.docs.rs]
 no-default-features = true # to exclude `application`
 features = ["docsrs"]
+
+[profile.release]
+lto = true
+strip = true
+codegen-units = 1
