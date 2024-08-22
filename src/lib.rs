@@ -17,3 +17,5 @@
 #![cfg_attr(not(debug_assertions), deny(clippy::todo))]
 #![cfg_attr(not(debug_assertions), deny(clippy::unimplemented))]
 #![cfg_attr(feature = "docsrs", feature(doc_auto_cfg))]
+
+pub mod config;
