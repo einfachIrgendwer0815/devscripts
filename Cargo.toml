@@ -16,6 +16,8 @@ required-features = ["application"]
 
 [features]
 default = ["application"]
+# Should be disabled when depending on devtools as a library
+# (no-default-features = true).
 application = ["clap", "anyhow"]
 
 [dependencies]
