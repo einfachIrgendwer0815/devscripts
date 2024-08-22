@@ -19,7 +19,13 @@ default = ["application"]
 # Should be disabled when depending on devtools as a library
 # (no-default-features = true).
 application = ["clap", "anyhow"]
+# Used for builds on docs.rs to enable #![features(doc_auto_cfg)] (internal)
+docsrs = []
 
 [dependencies]
 anyhow = { version = "1.0.86", optional = true }
 clap = { version = "4.5.16", features = ["cargo"], optional = true }
+
+[package.metadata.docs.rs]
+no-default-features = true # to exclude `application`
+features = ["docsrs"]
