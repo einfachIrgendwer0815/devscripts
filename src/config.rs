@@ -8,6 +8,11 @@
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
+#[cfg(feature = "serde")]
+mod reader;
+#[cfg(feature = "serde")]
+pub use reader::*;
+
 /// Main configuration data structure for devtools.
 ///
 /// Use [`default()`](Self::default) to obtain the default configuration.
