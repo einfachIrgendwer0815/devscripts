@@ -18,8 +18,8 @@ use super::Config;
 ///
 /// Read configuration from the default configuration paths (see [`with_default_paths()`](Self::with_default_paths)).
 /// ```no_run
-/// use dev_tools::config::ConfigReader;
-/// # use dev_tools::config::ReaderError;
+/// use devtools::config::ConfigReader;
+/// # use devtools::config::ReaderError;
 /// # fn main() -> Result<(), ReaderError> {
 ///
 /// let config = ConfigReader::with_default_paths().read()?;
@@ -29,8 +29,8 @@ use super::Config;
 ///
 /// Read default paths and an additional custom path.
 /// ```no_run
-/// use dev_tools::config::ConfigReader;
-/// # use dev_tools::config::ReaderError;
+/// use devtools::config::ConfigReader;
+/// # use devtools::config::ReaderError;
 /// # fn main() -> Result<(), ReaderError> {
 ///
 /// let config = ConfigReader::with_default_paths()
@@ -43,8 +43,8 @@ use super::Config;
 ///
 /// Read custom paths only.
 /// ```no_run
-/// use dev_tools::config::ConfigReader;
-/// # use dev_tools::config::ReaderError;
+/// use devtools::config::ConfigReader;
+/// # use devtools::config::ReaderError;
 /// # fn main() -> Result<(), ReaderError> {
 ///
 /// let config = ConfigReader::new()
@@ -99,8 +99,8 @@ impl<'a> ConfigReader<'a> {
     /// # Examples
     ///
     /// ```no_run
-    /// use dev_tools::config::ConfigReader;
-    /// # use dev_tools::config::ReaderError;
+    /// use devtools::config::ConfigReader;
+    /// # use devtools::config::ReaderError;
     /// # fn main() -> Result<(), ReaderError> {
     ///
     /// let config = ConfigReader::new()

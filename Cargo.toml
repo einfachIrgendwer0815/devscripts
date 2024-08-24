@@ -14,6 +14,9 @@ publish = false
 name = "dev"
 required-features = ["application"]
 
+[lib]
+name = "devtools"
+
 [features]
 default = ["application"]
 # Should be disabled when depending on devtools as a library
