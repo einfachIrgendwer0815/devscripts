@@ -41,6 +41,11 @@ default-features = false
 features = ["toml"]
 optional = true
 
+[dependencies.git2]
+version = "0.19.0"
+default-features = false
+features = ["vendored-libgit2"]
+
 [package.metadata.docs.rs]
 no-default-features = true     # to exclude `application`
 features = ["docsrs", "serde"]
