@@ -20,3 +20,6 @@
 
 pub mod config;
 mod path;
+mod scripts;
+
+pub use scripts::*;
