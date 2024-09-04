@@ -1,4 +1,4 @@
-//! Devtools configuration data structures
+//! Devscripts configuration data structures
 
 // attributes with types which do not implement
 // `Eq` may be added to the configuration in the future.
@@ -13,7 +13,7 @@ mod reader;
 #[cfg(feature = "serde")]
 pub use reader::*;
 
-/// Main configuration data structure for devtools.
+/// Main configuration data structure for devscripts.
 ///
 /// Use [`default()`](Self::default) to obtain the default configuration.
 #[cfg_attr(
@@ -44,12 +44,12 @@ pub struct Paths {
 pub struct ScriptPaths {
     /// List of directories containing system-wide scripts.
     ///
-    /// (Default: `/usr/share/devtools/scripts`, `/usr/local/share/devtools/scripts`)
+    /// (Default: `/usr/share/devscripts/scripts`, `/usr/local/share/devscripts/scripts`)
     pub system: Vec<PathBuf>,
 
     /// List of directories containing user-specific scripts.
     ///
-    /// (Default: `~/.local/share/devtools/scripts`)
+    /// (Default: `~/.local/share/devscripts/scripts`)
     pub user: Vec<PathBuf>,
 
     /// List of directories containing repository-specific scripts.
@@ -58,7 +58,7 @@ pub struct ScriptPaths {
     /// repository if the current working directory is located inside a git
     /// repository. If not inside of a git repository, this option is ignored.
     ///
-    /// (Default: `./.devtools/scripts`, `./.dev/scripts`)
+    /// (Default: `./.devscripts/scripts`, `./.dev/scripts`)
     pub repository: Vec<PathBuf>,
 }
 
@@ -66,11 +66,11 @@ impl Default for ScriptPaths {
     fn default() -> Self {
         Self {
             system: vec![
-                "/usr/share/devtools/scripts".into(),
-                "/usr/local/share/devtools/scripts".into(),
+                "/usr/share/devscripts/scripts".into(),
+                "/usr/local/share/devscripts/scripts".into(),
             ],
-            user: vec!["~/.local/share/devtools/scripts".into()],
-            repository: vec!["./.devtools/scripts".into(), "./.dev/scripts".into()],
+            user: vec!["~/.local/share/devscripts/scripts".into()],
+            repository: vec!["./.devscripts/scripts".into(), "./.dev/scripts".into()],
         }
     }
 }

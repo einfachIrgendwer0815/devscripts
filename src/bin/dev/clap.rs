@@ -2,7 +2,7 @@ use clap::Command;
 use clap::{Arg, ArgAction};
 
 pub fn build_clap_app() -> Command {
-    Command::new("devtools")
+    Command::new("devscripts")
         .bin_name("dev")
         .about("Run shell scripts conveniently.")
         .author(clap::crate_authors!())

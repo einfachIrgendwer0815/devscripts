@@ -18,8 +18,8 @@ use super::Config;
 ///
 /// Read configuration from the default configuration paths (see [`with_default_paths()`](Self::with_default_paths)).
 /// ```no_run
-/// use devtools::config::ConfigReader;
-/// # use devtools::config::ReaderError;
+/// use devscripts::config::ConfigReader;
+/// # use devscripts::config::ReaderError;
 /// # fn main() -> Result<(), ReaderError> {
 ///
 /// let config = ConfigReader::with_default_paths().read()?;
@@ -29,8 +29,8 @@ use super::Config;
 ///
 /// Read default paths and an additional custom path.
 /// ```no_run
-/// use devtools::config::ConfigReader;
-/// # use devtools::config::ReaderError;
+/// use devscripts::config::ConfigReader;
+/// # use devscripts::config::ReaderError;
 /// # fn main() -> Result<(), ReaderError> {
 ///
 /// let config = ConfigReader::with_default_paths()
@@ -43,13 +43,13 @@ use super::Config;
 ///
 /// Read custom paths only.
 /// ```no_run
-/// use devtools::config::ConfigReader;
-/// # use devtools::config::ReaderError;
+/// use devscripts::config::ConfigReader;
+/// # use devscripts::config::ReaderError;
 /// # fn main() -> Result<(), ReaderError> {
 ///
 /// let config = ConfigReader::new()
 ///     .add_path("~/custom_path_1.toml", true)
-///     .add_path("custom_devtools_config_2.toml", false)
+///     .add_path("custom_devscripts_config_2.toml", false)
 ///     .read()?;
 ///
 /// # Ok(()) }
@@ -68,9 +68,9 @@ impl<'a> ConfigReader<'a> {
 
     /// Creates a new instance with default configuration file paths configured.
     /// Default files:
-    ///   - `/etc/devtools/config.toml`
-    ///   - `~/.config/devtools/config.toml`
-    ///   - `./.devtools/config.toml`.
+    ///   - `/etc/devscripts/config.toml`
+    ///   - `~/.config/devscripts/config.toml`
+    ///   - `./.devscripts/config.toml`.
     ///
     /// None of those files are required.
     /// No error will be returned if any of them does not exist.
@@ -79,12 +79,15 @@ impl<'a> ConfigReader<'a> {
 
         Self {
             paths: vec![
-                (Cow::Borrowed(Path::new("/etc/devtools/config.toml")), false),
                 (
-                    Cow::Owned(user_home.join("./.config/devtools/config.toml")),
+                    Cow::Borrowed(Path::new("/etc/devscripts/config.toml")),
                     false,
                 ),
-                (Cow::Borrowed(Path::new("./.devtools/config.toml")), false),
+                (
+                    Cow::Owned(user_home.join("./.config/devscripts/config.toml")),
+                    false,
+                ),
+                (Cow::Borrowed(Path::new("./.devscripts/config.toml")), false),
             ],
         }
     }
@@ -99,8 +102,8 @@ impl<'a> ConfigReader<'a> {
     /// # Examples
     ///
     /// ```no_run
-    /// use devtools::config::ConfigReader;
-    /// # use devtools::config::ReaderError;
+    /// use devscripts::config::ConfigReader;
+    /// # use devscripts::config::ReaderError;
     /// # fn main() -> Result<(), ReaderError> {
     ///
     /// let config = ConfigReader::new()

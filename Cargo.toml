@@ -1,5 +1,5 @@
 [package]
-name = "dev-tools"
+name = "dev-scripts"
 version = "0.1.0"
 edition = "2021"
 authors = ["einfachIrgendwer0815"]
@@ -15,11 +15,11 @@ name = "dev"
 required-features = ["application"]
 
 [lib]
-name = "devtools"
+name = "devscripts"
 
 [features]
 default = ["application"]
-# Should be disabled when depending on devtools as a library
+# Should be disabled when depending on devscripts as a library
 # (no-default-features = true).
 application = ["clap", "anyhow", "serde"]
 # Used for builds on docs.rs to enable #![features(doc_auto_cfg)] (internal)
