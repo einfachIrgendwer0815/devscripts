@@ -1,8 +1,10 @@
 //! Devscripts configuration data structures
 
-// attributes with types which do not implement
-// `Eq` may be added to the configuration in the future.
-#![allow(clippy::derive_partial_eq_without_eq)]
+#![allow(
+    clippy::derive_partial_eq_without_eq,
+    reason = "Non-`Eq` typed attributes may be added \
+              to the configuration in the future."
+)]
 
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};

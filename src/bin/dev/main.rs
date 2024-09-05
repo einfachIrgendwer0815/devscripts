@@ -1,9 +1,7 @@
 #![warn(clippy::unwrap_used)]
 #![warn(clippy::expect_used)]
 #![warn(clippy::too_many_lines)]
-// `allow_attributes_without_reason` requires the feature `lint_reason`.
-// Activating this lint should be reconsidered once `lint_reason` is stabilized.
-// #![warn(clippy::allow_attributes_without_reason)]
+#![warn(clippy::allow_attributes_without_reason)]
 #![warn(clippy::use_debug)]
 #![warn(clippy::dbg_macro)]
 #![warn(clippy::todo)]
@@ -29,7 +27,10 @@ fn main() -> Result<ExitCode, anyhow::Error> {
 
     let config = devscripts::config::ConfigReader::with_default_paths().read()?;
 
-    #[allow(clippy::unwrap_used)] // That this argument exists was already checked.
+    #[allow(
+        clippy::unwrap_used,
+        reason = "That `script_name` exists was checked above."
+    )]
     let script_name = matches.get_one::<String>("script_name").unwrap();
     let args = matches
         .get_many::<String>("args")

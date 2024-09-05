@@ -7,9 +7,7 @@
 #![warn(clippy::derive_partial_eq_without_eq)]
 #![warn(clippy::use_self)]
 #![warn(clippy::too_many_lines)]
-// `allow_attributes_without_reason` requires the feature `lint_reason`.
-// Activating this lint should be reconsidered once `lint_reason` is stabilized.
-// #![warn(clippy::allow_attributes_without_reason)]
+#![warn(clippy::allow_attributes_without_reason)]
 #![warn(clippy::use_debug)]
 #![warn(clippy::dbg_macro)]
 #![warn(clippy::todo)]
