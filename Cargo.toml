@@ -6,6 +6,7 @@ authors = ["einfachIrgendwer0815"]
 license = "MIT OR Apache-2.0"
 description = "Optimize your development workflow by automating repetitive tasks"
 exclude = ["*", "!src/**", "!LICENSE*", "!NOTICE", "!README"]
+rust-version = "1.81.0"
 
 # prevent unintended publish before version 0.1.0 is actually released
 publish = false
