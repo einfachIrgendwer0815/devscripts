@@ -7,7 +7,7 @@
 #![warn(clippy::derive_partial_eq_without_eq)]
 #![warn(clippy::use_self)]
 #![warn(clippy::too_many_lines)]
-#![warn(clippy::allow_attributes_without_reason)]
+#![warn(clippy::allow_attributes)]
 #![warn(clippy::use_debug)]
 #![warn(clippy::dbg_macro)]
 #![warn(clippy::todo)]

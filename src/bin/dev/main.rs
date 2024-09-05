@@ -1,7 +1,7 @@
 #![warn(clippy::unwrap_used)]
 #![warn(clippy::expect_used)]
 #![warn(clippy::too_many_lines)]
-#![warn(clippy::allow_attributes_without_reason)]
+#![warn(clippy::allow_attributes)]
 #![warn(clippy::use_debug)]
 #![warn(clippy::dbg_macro)]
 #![warn(clippy::todo)]
@@ -27,7 +27,7 @@ fn main() -> Result<ExitCode, anyhow::Error> {
 
     let config = devscripts::config::ConfigReader::with_default_paths().read()?;
 
-    #[allow(
+    #[expect(
         clippy::unwrap_used,
         reason = "That `script_name` exists was checked above."
     )]

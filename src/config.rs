@@ -1,6 +1,6 @@
 //! Devscripts configuration data structures
 
-#![allow(
+#![expect(
     clippy::derive_partial_eq_without_eq,
     reason = "Non-`Eq` typed attributes may be added \
               to the configuration in the future."
