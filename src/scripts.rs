@@ -1,6 +1,5 @@
 //! Utilities for running and interacting with script files.
 
-use std::borrow::Cow;
 use std::fs;
 use std::io;
 use std::io::ErrorKind;
@@ -45,31 +44,7 @@ pub fn script_exists(name: &str, config: &Config) -> bool {
 
 /// Search for a script file in the configured paths.
 pub fn find_script(name: &str, config: &Config) -> Result<Option<PathBuf>, io::Error> {
-    let repo_root = path::git_root()?;
-
-    let user_dir_iter = config
-        .paths
-        .scripts
-        .user
-        .iter()
-        .map(|p| path::extend_home(p));
-
-    let system_dir_iter = config.paths.scripts.system.iter().map(Cow::from);
-
-    let mut dirs: Box<dyn Iterator<Item = Cow<'_, Path>>> = Box::new([].into_iter());
-
-    if let Some(root) = repo_root {
-        let repo_dir_iter = config
-            .paths
-            .scripts
-            .repository
-            .iter()
-            .map(move |p| Cow::Owned(root.join(p)));
-        dirs = Box::new(dirs.chain(repo_dir_iter));
-    }
-
-    dirs = Box::new(dirs.chain(user_dir_iter));
-    dirs = Box::new(dirs.chain(system_dir_iter));
+    let dirs = path::directories_iter(config)?;
 
     for dir in dirs {
         match search_dir(name, &dir) {
