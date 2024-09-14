@@ -14,19 +14,34 @@ mod clap;
 use std::os::unix::process::ExitStatusExt;
 use std::process::ExitCode;
 
+use ::clap::ArgMatches;
+use devscripts::config::Config;
 use devscripts::RunError;
 
 fn main() -> Result<ExitCode, anyhow::Error> {
     let mut app = clap::build_clap_app();
     let matches = app.get_matches_mut();
 
-    if !matches.contains_id("script_name") {
-        app.print_help()?;
-        return Ok(ExitCode::SUCCESS);
-    }
-
     let config = devscripts::config::ConfigReader::with_default_paths().read()?;
 
+    if matches.get_flag("list-scripts") {
+        let scripts = devscripts::all_scripts(&config)?;
+        for script in scripts {
+            println!("{script}");
+        }
+
+        Ok(ExitCode::SUCCESS)
+    } else {
+        if !matches.contains_id("script_name") {
+            app.print_help()?;
+            return Ok(ExitCode::SUCCESS);
+        }
+
+        run(matches, config)
+    }
+}
+
+fn run(matches: ArgMatches, config: Config) -> Result<ExitCode, anyhow::Error> {
     #[expect(
         clippy::unwrap_used,
         reason = "That `script_name` exists was checked above."

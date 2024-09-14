@@ -1,5 +1,6 @@
 //! Utilities for running and interacting with script files.
 
+use std::collections::HashSet;
 use std::fs;
 use std::io;
 use std::io::ErrorKind;
@@ -64,6 +65,40 @@ pub fn find_script(name: &str, config: &Config) -> Result<Option<PathBuf>, io::E
     }
 
     Ok(None)
+}
+
+/// Get names of all available scripts.
+pub fn all_scripts(config: &Config) -> Result<Vec<String>, io::Error> {
+    let mut set = HashSet::new();
+
+    let dirs = path::directories_iter(config)?;
+
+    for dir in dirs {
+        let read_dir = match fs::read_dir(dir) {
+            Ok(rd) => rd,
+            Err(e) => {
+                if let ErrorKind::NotFound = e.kind() {
+                    continue;
+                } else {
+                    return Err(e);
+                }
+            }
+        };
+
+        for entry in read_dir {
+            let entry = entry?;
+
+            if entry.file_type()?.is_file() {
+                let file_name = entry.file_name().to_string_lossy().into_owned();
+                set.insert(file_name);
+            }
+        }
+    }
+
+    let mut scripts = set.drain().collect::<Vec<_>>();
+    scripts.sort();
+
+    Ok(scripts)
 }
 
 /// Search file by name in a specific directory

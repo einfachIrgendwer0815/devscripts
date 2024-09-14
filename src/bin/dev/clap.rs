@@ -8,6 +8,12 @@ pub fn build_clap_app() -> Command {
         .author(clap::crate_authors!())
         .version(clap::crate_version!())
         .arg(
+            Arg::new("list-scripts")
+                .long("list-scripts")
+                .action(ArgAction::SetTrue)
+                .help("List available scripts in alphabetical order."),
+        )
+        .arg(
             Arg::new("script_name")
                 .action(ArgAction::Set)
                 .value_name("SCRIPT")
