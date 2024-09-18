@@ -27,12 +27,12 @@ application = ["clap", "anyhow", "serde"]
 docsrs = []
 # Enable implementations of serde traits on certain types, and
 # structs/functions/methods that require serde operations.
-serde = ["dep:serde", "dep:config", "dep:home"]
+serde = ["dep:serde", "dep:config"]
 
 [dependencies]
 anyhow = { version = "1.0.89", optional = true }
 clap = { version = "4.5.17", features = ["cargo"], optional = true }
-home = { version = "0.5.9", optional = true }
+home = { version = "0.5.9" }
 serde = { version = "1.0.210", optional = true, features = ["derive"] }
 thiserror = "1.0.63"
 
