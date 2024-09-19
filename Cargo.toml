@@ -1,5 +1,5 @@
 [package]
-name = "dev-scripts"
+name = "devscripts"
 version = "0.1.0-alpha.1"
 edition = "2021"
 authors = ["einfachIrgendwer0815"]
@@ -15,9 +15,6 @@ publish = false
 [[bin]]
 name = "dev"
 required-features = ["application"]
-
-[lib]
-name = "devscripts"
 
 [features]
 default = ["application"]
