@@ -20,4 +20,6 @@ pub mod config;
 mod path;
 mod scripts;
 
+#[doc(inline)]
+pub use config::Config;
 pub use scripts::*;

@@ -22,7 +22,7 @@ fn main() -> Result<ExitCode, anyhow::Error> {
     let mut app = clap::build_clap_app();
     let matches = app.get_matches_mut();
 
-    let config = devscripts::config::ConfigReader::with_default_paths().read()?;
+    let config = Config::read()?;
 
     if matches.get_flag("list-scripts") {
         let scripts = devscripts::all_scripts(&config)?;

@@ -25,9 +25,8 @@ default = ["application"]
 application = ["clap", "anyhow", "serde"]
 # Used for builds on docs.rs to enable #![features(doc_auto_cfg)] (internal)
 docsrs = []
-# Enable implementations of serde traits on certain types, and
-# structs/functions/methods that require serde operations.
-serde = ["dep:serde", "dep:config"]
+# Enable implementations of serde traits on certain types.
+serde = ["dep:serde", "dep:figment"]
 
 [dependencies]
 anyhow = { version = "1.0.89", optional = true }
@@ -36,10 +35,9 @@ home = { version = "0.5.9" }
 serde = { version = "1.0.210", optional = true, features = ["derive"] }
 thiserror = "1.0.63"
 
-[dependencies.config]
-version = "0.14.0"
-default-features = false
-features = ["toml"]
+[dependencies.figment]
+version = "0.10.19"
+features = ["env", "toml"]
 optional = true
 
 [dependencies.git2]

@@ -7,20 +7,21 @@
 )]
 
 #[cfg(feature = "serde")]
-use serde::{Deserialize, Serialize};
-use std::path::PathBuf;
+use figment::{
+    providers::{Format, Serialized, Toml},
+    Figment,
+};
 
 #[cfg(feature = "serde")]
-mod reader;
-#[cfg(feature = "serde")]
-pub use reader::*;
+use serde::{Deserialize, Serialize};
+use std::path::PathBuf;
 
 /// Main configuration data structure for devscripts.
 ///
 /// Use [`default()`](Self::default) to obtain the default configuration.
 #[cfg_attr(
     feature = "serde",
-    doc = "[`ConfigReader`] can be used to load configuration from the filesystem."
+    doc = "[`read()`](Self::read) and [`figment()`](Self::figment) can be used to obtain configuration from files."
 )]
 #[derive(Debug, Default, Clone, PartialEq)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
@@ -62,6 +63,36 @@ pub struct ScriptPaths {
     ///
     /// (Default: `./.devscripts/scripts`, `./.dev/scripts`)
     pub repository: Vec<PathBuf>,
+}
+
+impl Config {
+    /// Figment for reading this config, provided with default files.
+    ///
+    /// Default configuration files:
+    ///   - `/etc/devscripts/config.toml`
+    ///   - `~/.config/devscripts/config.toml`
+    ///   - `./.devscripts/config.toml`.
+    #[cfg(feature = "serde")]
+    pub fn figment() -> Figment {
+        let user_home = home::home_dir().unwrap_or_default();
+
+        Figment::new()
+            .merge(Serialized::defaults(Self::default()))
+            .merge(Toml::file("/etc/devscripts/config.toml"))
+            .merge(Toml::file(
+                user_home.join("./.config/devscripts/config.toml"),
+            ))
+            .merge(Toml::file("./.devscripts/config.toml"))
+    }
+
+    /// Read configuration from files.
+    ///
+    /// For a list of default configuration files,
+    /// see [`figment()`](Self::figment).
+    #[cfg(feature = "serde")]
+    pub fn read() -> Result<Self, figment::Error> {
+        Self::figment().extract()
+    }
 }
 
 impl Default for ScriptPaths {
