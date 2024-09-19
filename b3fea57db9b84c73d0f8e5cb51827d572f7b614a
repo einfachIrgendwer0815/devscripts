@@ -1,0 +1,6 @@
+`clippy::allow_attributes_without_reason`:
+    - set to warn level in `e8f59ec4`
+    - replaced by `clippy::allow_attributes` in `251d18a7`
+
+Ref: e8f59ec4ba2fac239a1bfa7e4fcc6510b67bea62
+Ref: 251d18a7b4c762f4c85a1f5b7a70153a5e14e0fb
