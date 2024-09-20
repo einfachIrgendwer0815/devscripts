@@ -26,6 +26,9 @@ pub enum RunError {
 }
 
 /// Run a certain script with additional `args`.
+///
+/// This function spawns a new process that executes the script with
+/// the given `args`. It will block until that process exits.
 pub fn run(name: &str, config: &Config, args: &[&str]) -> Result<ExitStatus, RunError> {
     let script =
         find_script(name, config)?.ok_or_else(|| RunError::ScriptNotFound(name.to_string()))?;
@@ -37,13 +40,28 @@ pub fn run(name: &str, config: &Config, args: &[&str]) -> Result<ExitStatus, Run
 
 /// Returns whether a certain script exists. Returns `false` when
 /// errors occur.
+///
+/// If you want to get error information in case of an error,
+/// use [`find_script()`] instead.
+///
+/// These are equivalent:
+/// ```no_run
+/// use devscripts::{script_exists, find_script};
+/// use devscripts::Config;
+///
+/// let config = Config::default();
+///
+/// let a = script_exists("my_script", &config);
+/// let b = find_script("my_script", &config).ok().flatten().is_some();
+/// assert_eq!(a, b);
+/// ```
 pub fn script_exists(name: &str, config: &Config) -> bool {
     find_script(name, config)
         .map(|path| path.is_some())
         .unwrap_or_default()
 }
 
-/// Search for a script file in the configured paths.
+/// Search for a script file in the configured paths and return its path if found.
 pub fn find_script(name: &str, config: &Config) -> Result<Option<PathBuf>, io::Error> {
     let dirs = path::directories_iter(config)?;
 
@@ -68,6 +86,8 @@ pub fn find_script(name: &str, config: &Config) -> Result<Option<PathBuf>, io::E
 }
 
 /// Get names of all available scripts.
+///
+/// Note: the returned values are script *names* not paths.
 pub fn all_scripts(config: &Config) -> Result<Vec<String>, io::Error> {
     let mut set = HashSet::new();
 
