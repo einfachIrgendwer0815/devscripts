@@ -55,10 +55,9 @@ pub fn run(name: &str, config: &Config, args: &[&str]) -> Result<ExitStatus, Run
 /// let b = find_script("my_script", &config).ok().flatten().is_some();
 /// assert_eq!(a, b);
 /// ```
+#[inline]
 pub fn script_exists(name: &str, config: &Config) -> bool {
-    find_script(name, config)
-        .map(|path| path.is_some())
-        .unwrap_or_default()
+    find_script(name, config).ok().flatten().is_some()
 }
 
 /// Search for a script file in the configured paths and return its path if found.
