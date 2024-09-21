@@ -30,21 +30,22 @@ fn main() -> Result<ExitCode, anyhow::Error> {
             println!("{script}");
         }
 
-        Ok(ExitCode::SUCCESS)
-    } else {
-        if !matches.contains_id("script_name") {
-            app.print_help()?;
-            return Ok(ExitCode::SUCCESS);
-        }
+        return Ok(ExitCode::SUCCESS);
+    }
 
-        run(matches, config)
+    match matches.subcommand() {
+        Some(("run", args)) => run(args, config),
+        _ => {
+            app.print_help()?;
+            Ok(ExitCode::SUCCESS)
+        }
     }
 }
 
-fn run(matches: ArgMatches, config: Config) -> Result<ExitCode, anyhow::Error> {
+fn run(matches: &ArgMatches, config: Config) -> Result<ExitCode, anyhow::Error> {
     #[expect(
         clippy::unwrap_used,
-        reason = "That `script_name` exists was checked above."
+        reason = "`script_name` is a required parameter, its existence is checked by clap."
     )]
     let script_name = matches.get_one::<String>("script_name").unwrap();
     let args = matches

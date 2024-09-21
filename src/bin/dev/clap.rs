@@ -13,18 +13,23 @@ pub fn build_clap_app() -> Command {
                 .action(ArgAction::SetTrue)
                 .help("List available scripts in alphabetical order."),
         )
-        .arg(
-            Arg::new("script_name")
-                .action(ArgAction::Set)
-                .value_name("SCRIPT")
-                .help("Name of the script to execute"),
-        )
-        .arg(
-            Arg::new("args")
-                .action(ArgAction::Append)
-                .value_name("ARGS")
-                .help("Arguments to be passed to the script")
-                .trailing_var_arg(true)
-                .allow_hyphen_values(true),
+        .subcommand(
+            Command::new("run")
+                .about("Run a script")
+                .arg(
+                    Arg::new("script_name")
+                        .action(ArgAction::Set)
+                        .value_name("SCRIPT")
+                        .help("Name of the script to execute")
+                        .required(true),
+                )
+                .arg(
+                    Arg::new("args")
+                        .action(ArgAction::Append)
+                        .value_name("ARGS")
+                        .help("Arguments to be passed to the script")
+                        .trailing_var_arg(true)
+                        .allow_hyphen_values(true),
+                ),
         )
 }
