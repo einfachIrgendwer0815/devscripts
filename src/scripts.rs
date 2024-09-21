@@ -109,6 +109,11 @@ pub fn all_scripts(config: &Config) -> Result<Vec<String>, io::Error> {
 
             if entry.file_type()?.is_file() {
                 let file_name = entry.file_name().to_string_lossy().into_owned();
+
+                if file_name.starts_with('.') {
+                    continue;
+                }
+
                 set.insert(file_name);
             }
         }
@@ -124,8 +129,9 @@ pub fn all_scripts(config: &Config) -> Result<Vec<String>, io::Error> {
 fn search_dir(name: &str, dir: &Path) -> Result<Option<PathBuf>, io::Error> {
     for entry in fs::read_dir(dir)? {
         let entry = entry?;
+        let file_name = entry.file_name().to_string_lossy().into_owned();
 
-        if entry.file_type()?.is_file() && entry.file_name().to_string_lossy() == name {
+        if file_name == name && entry.file_type()?.is_file() && !file_name.starts_with('.') {
             return Ok(Some(entry.path()));
         }
     }

@@ -47,12 +47,12 @@ pub struct Paths {
 pub struct ScriptPaths {
     /// List of directories containing system-wide scripts.
     ///
-    /// (Default: `/usr/share/devscripts/scripts`, `/usr/local/share/devscripts/scripts`)
+    /// (Default: `/usr/share/devscripts`, `/usr/local/share/devscripts`)
     pub system: Vec<PathBuf>,
 
     /// List of directories containing user-specific scripts.
     ///
-    /// (Default: `~/.local/share/devscripts/scripts`)
+    /// (Default: `~/.local/share/devscripts`)
     pub user: Vec<PathBuf>,
 
     /// List of directories containing repository-specific scripts.
@@ -61,7 +61,7 @@ pub struct ScriptPaths {
     /// repository if the current working directory is located inside a git
     /// repository. If not inside of a git repository, this option is ignored.
     ///
-    /// (Default: `./.devscripts/scripts`)
+    /// (Default: `./.devscripts`)
     pub repository: Vec<PathBuf>,
 }
 
@@ -71,7 +71,7 @@ impl Config {
     /// Default configuration files:
     ///   - `/etc/devscripts/config.toml`
     ///   - `~/.config/devscripts/config.toml`
-    ///   - `./.devscripts/config.toml`.
+    ///   - `./.devscripts/.config.toml`.
     #[cfg(feature = "serde")]
     pub fn figment() -> Figment {
         let user_home = home::home_dir().unwrap_or_default();
@@ -82,7 +82,7 @@ impl Config {
             .merge(Toml::file(
                 user_home.join("./.config/devscripts/config.toml"),
             ))
-            .merge(Toml::file("./.devscripts/config.toml"))
+            .merge(Toml::file("./.devscripts/.config.toml"))
     }
 
     /// Read configuration from files.
@@ -99,11 +99,11 @@ impl Default for ScriptPaths {
     fn default() -> Self {
         Self {
             system: vec![
-                "/usr/share/devscripts/scripts".into(),
-                "/usr/local/share/devscripts/scripts".into(),
+                "/usr/share/devscripts".into(),
+                "/usr/local/share/devscripts".into(),
             ],
-            user: vec!["~/.local/share/devscripts/scripts".into()],
-            repository: vec!["./.devscripts/scripts".into()],
+            user: vec!["~/.local/share/devscripts".into()],
+            repository: vec!["./.devscripts".into()],
         }
     }
 }
