@@ -16,6 +16,9 @@ use figment::{
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
+#[cfg(feature = "serde")]
+use crate::path::git_root;
+
 /// Main configuration data structure for devscripts.
 ///
 /// Use [`default()`](Self::default) to obtain the default configuration.
@@ -71,18 +74,24 @@ impl Config {
     /// Default configuration files:
     ///   - `/etc/devscripts/config.toml`
     ///   - `~/.config/devscripts/config.toml`
-    ///   - `./.devscripts/.config.toml`.
+    ///   - `<repository-root>/.devscripts/.config.toml`.
     #[cfg(feature = "serde")]
     pub fn figment() -> Figment {
         let user_home = home::home_dir().unwrap_or_default();
+        let git_root = git_root().unwrap_or_default();
 
-        Figment::new()
+        let mut figment = Figment::new()
             .merge(Serialized::defaults(Self::default()))
             .merge(Toml::file("/etc/devscripts/config.toml"))
             .merge(Toml::file(
                 user_home.join("./.config/devscripts/config.toml"),
-            ))
-            .merge(Toml::file("./.devscripts/.config.toml"))
+            ));
+
+        if let Some(git_root) = git_root {
+            figment = figment.merge(Toml::file(git_root.join("./.devscripts/.config.toml")));
+        }
+
+        figment
     }
 
     /// Read configuration from files.
