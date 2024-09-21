@@ -1,12 +1,14 @@
 use clap::Command;
 use clap::{Arg, ArgAction};
 
+const VERSION: &str = git_version::git_version!(cargo_prefix = "v");
+
 pub fn build_clap_app() -> Command {
     Command::new("devscripts")
         .bin_name("dev")
         .about("Run shell scripts conveniently.")
         .author(clap::crate_authors!())
-        .version(clap::crate_version!())
+        .version(VERSION)
         .subcommand(
             Command::new("list-scripts").about("List available scripts in alphabetical order."),
         )

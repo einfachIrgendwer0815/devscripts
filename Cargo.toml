@@ -20,7 +20,7 @@ required-features = ["application"]
 default = ["application"]
 # Should be disabled when depending on devscripts as a library
 # (no-default-features = true).
-application = ["clap", "anyhow", "serde"]
+application = ["clap", "anyhow", "serde", "git-version"]
 # Used for builds on docs.rs to enable #![features(doc_auto_cfg)] (internal)
 docsrs = []
 # Enable implementations of serde traits on certain types.
@@ -29,6 +29,7 @@ serde = ["dep:serde", "dep:figment"]
 [dependencies]
 anyhow = { version = "1.0.89", optional = true }
 clap = { version = "4.5.17", features = ["cargo"], optional = true }
+git-version = { version = "0.3.9", optional = true }
 home = { version = "0.5.9" }
 serde = { version = "1.0.210", optional = true, features = ["derive"] }
 thiserror = "1.0.63"
