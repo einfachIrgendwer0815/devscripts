@@ -61,7 +61,7 @@ pub struct ScriptPaths {
     /// repository if the current working directory is located inside a git
     /// repository. If not inside of a git repository, this option is ignored.
     ///
-    /// (Default: `./.devscripts/scripts`, `./.dev/scripts`)
+    /// (Default: `./.devscripts/scripts`)
     pub repository: Vec<PathBuf>,
 }
 
@@ -103,7 +103,7 @@ impl Default for ScriptPaths {
                 "/usr/local/share/devscripts/scripts".into(),
             ],
             user: vec!["~/.local/share/devscripts/scripts".into()],
-            repository: vec!["./.devscripts/scripts".into(), "./.dev/scripts".into()],
+            repository: vec!["./.devscripts/scripts".into()],
         }
     }
 }
