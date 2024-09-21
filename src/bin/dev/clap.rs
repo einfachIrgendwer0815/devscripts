@@ -7,11 +7,8 @@ pub fn build_clap_app() -> Command {
         .about("Run shell scripts conveniently.")
         .author(clap::crate_authors!())
         .version(clap::crate_version!())
-        .arg(
-            Arg::new("list-scripts")
-                .long("list-scripts")
-                .action(ArgAction::SetTrue)
-                .help("List available scripts in alphabetical order."),
+        .subcommand(
+            Command::new("list-scripts").about("List available scripts in alphabetical order."),
         )
         .subcommand(
             Command::new("run")

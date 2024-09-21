@@ -24,17 +24,15 @@ fn main() -> Result<ExitCode, anyhow::Error> {
 
     let config = Config::read()?;
 
-    if matches.get_flag("list-scripts") {
-        let scripts = devscripts::all_scripts(&config)?;
-        for script in scripts {
-            println!("{script}");
-        }
-
-        return Ok(ExitCode::SUCCESS);
-    }
-
     match matches.subcommand() {
         Some(("run", args)) => run(args, config),
+        Some(("list-scripts", _)) => {
+            let scripts = devscripts::all_scripts(&config)?;
+            for script in scripts {
+                println!("{script}");
+            }
+            Ok(ExitCode::SUCCESS)
+        }
         _ => {
             app.print_help()?;
             Ok(ExitCode::SUCCESS)
