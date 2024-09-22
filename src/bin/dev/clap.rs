@@ -10,6 +10,17 @@ pub fn build_clap_app() -> Command {
         .author(clap::crate_authors!())
         .version(VERSION)
         .subcommand(
+            Command::new("completions")
+                .about("Emit shell completions")
+                .arg(
+                    Arg::new("shell")
+                        .value_name("SHELL")
+                        .value_parser(["bash"])
+                        .help("Shell to emit completions for")
+                        .required(true),
+                ),
+        )
+        .subcommand(
             Command::new("list-scripts").about("List available scripts in alphabetical order."),
         )
         .subcommand(

@@ -9,6 +9,10 @@
 #![cfg_attr(not(debug_assertions), deny(clippy::todo))]
 #![cfg_attr(not(debug_assertions), deny(clippy::unimplemented))]
 
+mod completions {
+    pub const BASH: &str = include_str!("../../../completions/devscripts.bash");
+}
+
 mod clap;
 
 use std::os::unix::process::ExitStatusExt;
@@ -30,6 +34,19 @@ fn main() -> Result<ExitCode, anyhow::Error> {
             let scripts = devscripts::all_scripts(&config)?;
             for script in scripts {
                 println!("{script}");
+            }
+            Ok(ExitCode::SUCCESS)
+        }
+        Some(("completions", args)) => {
+            #[expect(
+                clippy::unwrap_used,
+                reason = "`shell` is a required parameter, its existence is checked by clap."
+            )]
+            let shell = args.get_one::<String>("shell").unwrap();
+
+            match shell.as_str() {
+                "bash" => print!("{}", completions::BASH),
+                _ => unreachable!("Argument `shell` has no other possible values."),
             }
             Ok(ExitCode::SUCCESS)
         }
