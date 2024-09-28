@@ -86,7 +86,7 @@ pub fn find_script(name: &str, config: &Config) -> Result<Option<PathBuf>, io::E
 
 /// Get names of all available scripts.
 ///
-/// Note: the returned values are script *names* not paths.
+/// Note: the returned values are script *names* without file endings.
 pub fn all_scripts(config: &Config) -> Result<Vec<String>, io::Error> {
     let mut set = HashSet::new();
 
@@ -108,7 +108,10 @@ pub fn all_scripts(config: &Config) -> Result<Vec<String>, io::Error> {
             let entry = entry?;
 
             if entry.file_type()?.is_file() {
-                let file_name = entry.file_name().to_string_lossy().into_owned();
+                let file_name = match entry.path().file_stem() {
+                    Some(stem) => stem.to_string_lossy().into_owned(),
+                    None => continue,
+                };
 
                 if file_name.starts_with('.') {
                     continue;
@@ -129,7 +132,10 @@ pub fn all_scripts(config: &Config) -> Result<Vec<String>, io::Error> {
 fn search_dir(name: &str, dir: &Path) -> Result<Option<PathBuf>, io::Error> {
     for entry in fs::read_dir(dir)? {
         let entry = entry?;
-        let file_name = entry.file_name().to_string_lossy().into_owned();
+        let file_name = match entry.path().file_stem() {
+            Some(stem) => stem.to_string_lossy().into_owned(),
+            None => continue,
+        };
 
         if file_name == name && entry.file_type()?.is_file() && !file_name.starts_with('.') {
             return Ok(Some(entry.path()));
