@@ -1,4 +1,4 @@
-//! Conveniently automate tasks using shell scripts.
+//! Run path-specific (shell) scripts without the need to modify `PATH`.
 
 #![warn(missing_docs)]
 #![warn(clippy::missing_docs_in_private_items)]

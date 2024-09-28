@@ -5,7 +5,7 @@ edition = "2021"
 authors = ["einfachIrgendwer0815"]
 license = "MIT OR Apache-2.0"
 repository = "https://github.com/einfachIrgendwer0815/devscripts"
-description = "Optimize your development workflow by automating repetitive tasks"
+description = "Run path-specific (shell) scripts without the need to modify `PATH`."
 exclude = ["*", "!src/**", "!completions/**", "!LICENSE*", "!NOTICE", "!README"]
 rust-version = "1.81.0"
 
