@@ -9,9 +9,6 @@ description = "Run path-specific (shell) scripts without the need to modify `PAT
 exclude = ["*", "!src/**", "!completions/**", "!LICENSE*", "!NOTICE", "!README"]
 rust-version = "1.81.0"
 
-# prevent unintended publish before version 0.1.0 is actually released
-publish = false
-
 [[bin]]
 name = "dev"
 required-features = ["application"]
