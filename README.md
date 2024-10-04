@@ -188,7 +188,7 @@ dual licensed as above, without any additional terms or conditions.
 [cratesio]: https://crates.io/crates/devscripts
 [docsrs]: https://docs.rs/devscripts
 
-[version_img]: https://img.shields.io/github/v/release/einfachIrgendwer0815/devscripts?color=8800AA&style=flat-square
+[version_img]: https://img.shields.io/github/v/release/einfachIrgendwer0815/devscripts?color=8800AA&style=flat-square&include_prereleases
 [license_img]: https://img.shields.io/badge/license-MIT_OR_Apache--2.0-orange?style=flat-square
 [crate_img]: https://img.shields.io/crates/v/devscripts?style=flat-square
 [docs_img]: https://img.shields.io/docsrs/devscripts?style=flat-square&color=blue
